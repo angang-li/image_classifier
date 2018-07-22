@@ -27,7 +27,17 @@ def build_model(arch, hidden_units):
     for param in model.parameters():
         param.requires_grad = False # Freeze parameters so we don't backprop through them
 
-    classifier = nn.Sequential(OrderedDict([
+    if arch.lower() == "vgg13":
+        classifier = nn.Sequential(OrderedDict([
+                            ('dropout1', nn.Dropout(0.1)),
+                            ('fc1', nn.Linear(25088, hidden_units)), # 25088 must match
+                            ('relu1', nn.ReLU()),
+                            ('dropout2', nn.Dropout(0.1)),
+                            ('fc2', nn.Linear(hidden_units, 102)),
+                            ('output', nn.LogSoftmax(dim=1))
+                            ]))
+    else:
+        classifier = nn.Sequential(OrderedDict([
                             ('dropout1', nn.Dropout(0.1)),
                             ('fc1', nn.Linear(1024, hidden_units)), # 1024 must match
                             ('relu1', nn.ReLU()),
@@ -35,7 +45,7 @@ def build_model(arch, hidden_units):
                             ('fc2', nn.Linear(hidden_units, 102)),
                             ('output', nn.LogSoftmax(dim=1))
                             ]))
-        
+
     model.classifier = classifier
     print(f"Model built from {arch} and {hidden_units} hidden units.")
 
