@@ -12,7 +12,7 @@ Data file structure:
 
 - `flowers`: folder of image data.
     - `train`, `valid`, `test`: subfolders for training, validating, and testing the image classifier, respectively.
-        - `1`, `2`, ..., `102`: 102 subfolders whose names indicate different flower categories. Given the large data size, only very few folders are included here.
+        - `1`, `2`, ..., `102`: 102 subfolders whose names indicate different flower categories. Given the large data size, data folders are included here.
 
 ## 2. Build an image classifier
 
